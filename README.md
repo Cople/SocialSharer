@@ -2,6 +2,10 @@
 
 最 Pure 的社会化分享按钮
 
+## 演示
+
+[DEMO](http://cople.github.io/SocialSharer)
+
 ## 安装
 
 ```sh
@@ -56,7 +60,7 @@ var socialSharer = new SocialSharer(".social-sharer");
 | twitterHashTags | string | "" | 参见：https://dev.twitter.com/web/tweet-button/web-intent |
 | wechatTitle | string | "分享到微信" | 微信二维码标题 |
 | wechatTip | string | "用微信「扫一扫」上方二维码即可。" | 微信二维码提示文字 |
-| services | array | ["weibo", "wechat", "qzone", "qq", "douban", "yingxiang"] | 要使用的服务列表 |
+| services | array | ["weibo", "wechat", "qzone", "qq", "douban", "yingxiang"] | 要使用的服务列表，目前支持：weibo, wechat, qzone, qq, douban, yingxiang, renren, facebook, twitter, gplus, linkedin, evernote |
 | classNamePrefix | string | "icon icon-" | 分享图标的 CSS 类前缀 |
 | render | function | null | 生成分享图标后会调用该函数，参数：`icon:element`, `serviceName:string` |
 
