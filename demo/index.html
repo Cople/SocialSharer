@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>social-sharer.js</title>
+	<link rel="stylesheet" href="../dist/social-sharer.min.css">
+	<style>
+	body { text-align: center; }
+	.content { margin: 250px 40px 50px; }
+	</style>
+
+	<meta property="og:title" content="title">
+	<meta property="og:description" content="description">
+	<meta property="og:image" content="image">
+	<meta property="og:url" content="url">
+	<meta property="og:site_name" content="site_name">
+
+	<!-- alternative -->
+	<mata name="description" content="description">
+	<link rel="canonical" href="url">
+</head>
+<body>
+
+<div class="content">
+	<h1>social-sharer.js</h1>
+	<h3>最 Pure 的社会化分享按钮</h3>
+	<p><a href="#">View on GitHub</a></p>
+
+	<div id="demo"></div>
+</div>
+
+<script src="../src/social-sharer.js"></script>
+<script>
+var socialSharer = new SocialSharer("#demo");
+</script>
+
+</body>
+</html>

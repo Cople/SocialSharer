@@ -1,0 +1,7 @@
+{
+  "strict": "global",
+  "browser": true,
+  "devel": true,
+  "jquery": true,
+  "scripturl": true
+}
