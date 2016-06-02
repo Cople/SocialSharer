@@ -6,9 +6,11 @@ var uglify = require('gulp-uglify');
 var header = require('gulp-header');
 var rename = require('gulp-rename');
 
+var pluginName = 'SocialSharer';
+
 var pkg = require('./package.json');
 var banner = ['/*!',
-  ' * <%= pkg.name %> v<%= pkg.version %>',
+  ' * ' + pluginName + ' v<%= pkg.version %>',
   ' * <%= pkg.homepage %>',
   ' * Licensed under <%= pkg.license %>',
   ' */',
@@ -20,11 +22,11 @@ gulp.task('js', function() {
     .pipe(jshint.reporter('jshint-stylish'))
     .pipe(jshint.reporter('fail'))
     .pipe(umd({
-      exports: function(file) {
-          return 'SocialSharer';
+      exports: function() {
+          return pluginName;
         },
-        namespace: function(file) {
-          return 'SocialSharer';
+        namespace: function() {
+          return pluginName;
         }
     }))
     .pipe(uglify())
@@ -40,7 +42,7 @@ gulp.task('sass', function () {
     .pipe(gulp.dest('./dist'));
 });
  
-gulp.task('watch', function () {
+gulp.task('dev', function () {
   gulp.watch('./src/*.scss', ['sass']);
   gulp.watch('./src/*.js', ['js']);
 });

@@ -1,7 +1,8 @@
 {
   "name": "social-sharer",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "最 Pure 的社会化分享按钮",
+  "main": "dist/social-sharer.min.js",
   "keywords": [
     "social",
     "share",
@@ -17,13 +18,13 @@
   },
   "devDependencies": {
     "gulp": "^3.9.1",
-    "gulp-header": "^1.7.1",
-    "gulp-jshint": "^2.0.0",
+    "gulp-header": "^1.8.2",
+    "gulp-jshint": "^2.0.1",
     "gulp-rename": "^1.2.2",
+    "gulp-sass": "^2.3.1",
     "gulp-uglify": "^1.5.3",
     "gulp-umd": "^0.2.0",
-    "jshint": "^2.9.1",
-    "jshint-stylish": "^2.1.0",
-    "gulp-sass": "^2.2.0"
+    "jshint": "^2.9.2",
+    "jshint-stylish": "^2.2.0"
   }
 }
