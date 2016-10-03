@@ -1,39 +1,15 @@
 @font-face {
     font-family: 'socialsharer';
-    src: url('//at.alicdn.com/t/font_1458536883_9280622.eot'); /* IE9*/
+    src: url('//at.alicdn.com/t/font_1458536883_9280622.eot'); /* IE9 */
     src: url('//at.alicdn.com/t/font_1458536883_9280622.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
     url('//at.alicdn.com/t/font_1458536883_9280622.woff') format('woff'), /* chrome、firefox */
-    url('//at.alicdn.com/t/font_1458536883_9280622.ttf') format('truetype'), /* chrome、firefox、opera、Safari, Android, iOS 4.2+*/
+    url('//at.alicdn.com/t/font_1458536883_9280622.ttf') format('truetype'), /* chrome、firefox、opera、Safari, Android, iOS 4.2+ */
     url('//at.alicdn.com/t/font_1458536883_9280622.svg#socialsharer') format('svg'); /* iOS 4.1- */
-}
-
-.icon {
-    font-family: 'socialsharer';
-    font-weight: normal;
-    font-style: normal;
-    font-size: 18px;  /* Preferred icon size */
-    display: inline-block;
-    line-height: 1;
-    text-transform: none;
-    letter-spacing: normal;
-    word-wrap: normal;
-    white-space: nowrap;
-    direction: ltr;
-
-    /* Support for all WebKit browsers. */
-    -webkit-font-smoothing: antialiased;
-    /* Support for Safari and Chrome. */
-    text-rendering: optimizeLegibility;
-
-    /* Support for Firefox. */
-    -moz-osx-font-smoothing: grayscale;
-
-    /* Support for IE. */
-    font-feature-settings: 'liga';
 }
 
 .social-sharer {
     .icon {
+        display: inline-block;
         margin: 0 3px;
         width: 30px;
         height: 30px;
@@ -45,6 +21,24 @@
         vertical-align: middle;
         text-decoration: none;
         transition: .3s;
+
+        &:before {
+            font-family: 'socialsharer';
+            font-weight: normal;
+            font-style: normal;
+            font-size: 18px;
+            line-height: 1;
+            text-transform: none;
+            letter-spacing: normal;
+            word-wrap: normal;
+            white-space: nowrap;
+            direction: ltr;
+
+            -webkit-font-smoothing: antialiased;
+            text-rendering: optimizeLegibility;
+            -moz-osx-font-smoothing: grayscale;
+            font-feature-settings: 'liga';
+        }
 
         &:hover {
             color: #fff;
@@ -111,9 +105,11 @@
 
         h4 {
             font-size: 1em;
+            line-height: 1;
             margin: 0;
         }
         img {
+            display: block;
             width: 260px;
             height: 260px;
         }
