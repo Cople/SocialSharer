@@ -59,7 +59,7 @@ var templates = SocialSharer.templates = {
     evernote: "http://www.evernote.com/clip.action?url={url}&title={title}",
     yingxiang: "http://app.yinxiang.com/clip.action?url={url}&title={title}",
     qrcode: "//pan.baidu.com/share/qrcode?w={qrcodeSize}&h={qrcodeSize}&url={url}",
-    email: "?subject={title}&body={url}"
+    email: "mailto:?subject={title}&body={url}"
 };
 
 SocialSharer.prototype = {
