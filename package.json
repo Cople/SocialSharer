@@ -1,6 +1,6 @@
 {
   "name": "social-sharer",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "最 Pure 的社会化分享按钮",
   "main": "dist/social-sharer.min.js",
   "keywords": [
