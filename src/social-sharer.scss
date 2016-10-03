@@ -1,10 +1,10 @@
 @font-face {
     font-family: 'socialsharer';
-    src: url('//at.alicdn.com/t/font_1458536883_9280622.eot'); /* IE9 */
-    src: url('//at.alicdn.com/t/font_1458536883_9280622.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
-    url('//at.alicdn.com/t/font_1458536883_9280622.woff') format('woff'), /* chrome、firefox */
-    url('//at.alicdn.com/t/font_1458536883_9280622.ttf') format('truetype'), /* chrome、firefox、opera、Safari, Android, iOS 4.2+ */
-    url('//at.alicdn.com/t/font_1458536883_9280622.svg#socialsharer') format('svg'); /* iOS 4.1- */
+    src: url('//at.alicdn.com/t/font_1475494885_6903808.eot'); /* IE9 */
+    src: url('//at.alicdn.com/t/font_1475494885_6903808.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+    url('//at.alicdn.com/t/font_1475494885_6903808.woff') format('woff'), /* chrome、firefox */
+    url('//at.alicdn.com/t/font_1475494885_6903808.ttf') format('truetype'), /* chrome、firefox、opera、Safari, Android, iOS 4.2+ */
+    url('//at.alicdn.com/t/font_1475494885_6903808.svg#socialsharer') format('svg'); /* iOS 4.1- */
 }
 
 .social-sharer {
@@ -56,7 +56,8 @@
                  (linkedin,  #0077B6, "\e605"),
                  (gplus,     #dd4b39, "\e609"),
                  (evernote,  #79C13A, "\e601"),
-                 (yingxiang, #79C13A, "\e601");
+                 (yingxiang, #79C13A, "\e601"),
+                 (email,     #1C9FF7, "\e60b");
 
     @each $plantform, $color, $code in $plantforms {
         .icon-#{$plantform} {

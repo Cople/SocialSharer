@@ -26,7 +26,11 @@ var extend = Object.assign || function(target, source) {
     return target;
 };
 
-var defaults = {
+var SocialSharer = function() {
+    this.init.apply(this, arguments);
+};
+
+var defaults = SocialSharer.defaults = {
     url: getOpenGraphByName("og:url") || getCanonicalURL() || location.href,
     title: getOpenGraphByName("og:title") || document.title,
     summary: getOpenGraphByName("og:description") || getMetaContentByName("description") || "",
@@ -39,12 +43,11 @@ var defaults = {
     wechatTip: "用微信「扫一扫」上方二维码即可。",
     qrcodeSize: 260,
     services: ["weibo", "wechat", "qzone", "qq", "douban", "yingxiang"],
-    templates: {},
     classNamePrefix: "icon icon-",
     render: null
 };
 
-var templates = {
+var templates = SocialSharer.templates = {
     weibo: "http://service.weibo.com/share/share.php?url={url}&title={title}&pic={pic}&appkey={weiboKey}",
     qq: "http://connect.qq.com/widget/shareqq/index.html?url={url}&title={title}&summary={summary}&pics={pic}&site={source}",
     qzone: "http://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url={url}&title={title}&summary={summary}&pics={pic}&site={source}",
@@ -55,11 +58,8 @@ var templates = {
     linkedin: "http://www.linkedin.com/shareArticle?mini=true&url={url}&title={title}&summary={summary}&source={source}",
     evernote: "http://www.evernote.com/clip.action?url={url}&title={title}",
     yingxiang: "http://app.yinxiang.com/clip.action?url={url}&title={title}",
-    qrcode: "//pan.baidu.com/share/qrcode?w={qrcodeSize}&h={qrcodeSize}&url={url}"
-};
-
-var SocialSharer = function() {
-    this.init.apply(this, arguments);
+    qrcode: "//pan.baidu.com/share/qrcode?w={qrcodeSize}&h={qrcodeSize}&url={url}",
+    email: "?subject={title}&body={url}"
 };
 
 SocialSharer.prototype = {
@@ -69,19 +69,27 @@ SocialSharer.prototype = {
         if (this.container._SocialSharer) return;
 
         this.container._SocialSharer = this;
-        if (this.container.className.indexOf("social-sharer") === -1) this.container.className += " social-sharer";
 
-        options = options || {};
-        if (this.container.getAttribute("data-url")) options.url = this.container.getAttribute("data-url");
-        if (this.container.getAttribute("data-title")) options.title = this.container.getAttribute("data-title");
-        if (this.container.getAttribute("data-summary")) options.summary = this.container.getAttribute("data-summary");
-        if (this.container.getAttribute("data-pic")) options.pic = this.container.getAttribute("data-pic");
-
-        this.options = extend(defaults, options);
+        this.options = extend(defaults, this.mergeOptions(options || {}));
         this.options.qrcodeSize *= Math.min(2, window.devicePixelRatio || 1);
-        this.templates = extend(templates, options.templates);
 
         this.createIcons();
+    },
+
+    mergeOptions: function(options) {
+        var key, value;
+
+        for (key in defaults) {
+            if (key === "render") continue;
+
+            value = this.container.getAttribute("data-" + key);
+
+            if (value) {
+                options[key] = key === "services" ? value.split(",") : value;
+            }
+        }
+
+        return options;
     },
 
     createIcons: function() {
@@ -128,7 +136,7 @@ SocialSharer.prototype = {
     },
 
     getURL: function(service) {
-        var template = this.templates[service];
+        var template = templates[service === "wechat" ? "qrcode" : service];
         var options = this.options;
         return template ? template.replace(/\{(.*?)\}/g, function(match, key) {
             return encodeURIComponent(options[key]);

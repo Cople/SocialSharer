@@ -16,7 +16,7 @@ npm install social-sharer --save
 
 ```html
 <!-- HTML -->
-<div class="social-sharer" data-title="标题" data-url="地址" data-pic="图片"></div>
+<div class="social-sharer"></div>
 
 <!-- CSS (optional) -->
 <link href="../dist/social-sharer.min.css">
@@ -55,11 +55,16 @@ var socialSharer = new SocialSharer(".social-sharer");
 | wechatTitle     | string   | "分享到微信"                                  | 微信二维码标题                                  |
 | wechatTip       | string   | "用微信「扫一扫」上方二维码即可。"                       | 微信二维码提示文字                                |
 | qrcodeSize      | number   | 260                                      | 微信二维码尺寸                                  |
-| services        | array    | ["weibo", "wechat", "qzone", "qq", "douban", "yingxiang"] | 要使用的服务列表，目前支持：weibo, wechat, qzone, qq, douban, yingxiang, renren, facebook, twitter, gplus, linkedin, evernote |
+| services        | array    | ["weibo", "wechat", "qzone", "qq", "douban", "yingxiang"] | 要使用的服务列表，目前支持：weibo, wechat, qzone, qq, douban, yingxiang, renren, facebook, twitter, gplus, linkedin, evernote, email |
 | templates       | object   | {}                                       | 服务商的地址模板                                 |
 | classNamePrefix | string   | "icon icon-"                             | 分享图标的 CSS 类前缀                            |
 | render          | function | null                                     | 生成分享图标后会调用该函数，参数：`icon:element`, `serviceName:string` |
 
+你可以通过给元素设置 `data-*` 属性来设置对应选项（`render`除外）。例如：
+
+```html
+<div class="social-sharer" data-title="标题" data-url="地址" data-pic="图片"></div>
+```
 
 ## 方法
 
