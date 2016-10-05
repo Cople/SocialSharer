@@ -44,7 +44,8 @@ var defaults = SocialSharer.defaults = {
     qrcodeSize: 260,
     services: ["weibo", "wechat", "qzone", "qq", "douban", "yingxiang"],
     classNamePrefix: "icon icon-",
-    render: null
+    onRender: null,
+    onClick: null
 };
 
 var templates = SocialSharer.templates = {
@@ -60,6 +61,13 @@ var templates = SocialSharer.templates = {
     yingxiang: "http://app.yinxiang.com/clip.action?url={url}&title={title}",
     qrcode: "//pan.baidu.com/share/qrcode?w={qrcodeSize}&h={qrcodeSize}&url={url}",
     email: "mailto:?subject={title}&body={url}"
+};
+
+SocialSharer.addService = function(name, template) {
+    templates[name] = template;
+    template.replace(/\{(.*?)\}/g, function(match, key) {
+        defaults[key] = "";
+    });
 };
 
 SocialSharer.prototype = {
@@ -80,9 +88,9 @@ SocialSharer.prototype = {
         var key, value;
 
         for (key in defaults) {
-            if (key === "render") continue;
+            if (key === "onRender" || key === "onClick") continue;
 
-            value = this.container.getAttribute("data-" + key);
+            value = this.container.getAttribute("data-" + key.replace(/[A-Z]/g, "-$&").toLowerCase());
 
             if (value) {
                 options[key] = key === "services" ? value.split(",") : value;
@@ -92,37 +100,44 @@ SocialSharer.prototype = {
         return options;
     },
 
+    setIcon: function(icon, service) {
+        var self = this;
+
+        icon.className += " " + this.options.classNamePrefix + service;
+
+        if (service === "wechat") {
+            this.createQRCode(icon);
+            icon.href = "javascript:;";
+        } else {
+            icon.href = this.getURL(service);
+            if (service !== "email") icon.target = "_blank";
+        }
+
+        if (this.options.onRender) this.options.onRender.call(this, icon, service);
+
+        if (this.options.onClick) {
+            icon.onclick = function(event) {
+                return self.options.onClick.call(self, event, service);
+            };
+        }
+    },
+
     createIcons: function() {
         var defaultIcons = this.container.querySelectorAll("[data-service]");
-        var i, len, icon, service;
+        var i, len, icon;
 
         if (defaultIcons.length) {
             for (i = 0, len = defaultIcons.length; i < len; i++) {
                 icon = defaultIcons[i];
-                service = icon.getAttribute("data-service");
-                icon.className += this.options.classNamePrefix + service;
-                if (service === "wechat") {
-                    this.createQRCode(icon);
-                    icon.href = "javascript:;";
-                } else {
-                    icon.href = this.getURL(service);
-                    icon.target = "_blank";
-                }
-                if (this.options.render) this.options.render.call(this, icon, service);
+
+                this.setIcon(icon, icon.getAttribute("data-service"));
             }
         } else {
             for (i = 0, len = this.options.services.length; i < len; i++) {
-                service = this.options.services[i];
                 icon = document.createElement("a");
-                icon.className = this.options.classNamePrefix + service;
-                if (service === "wechat") {
-                    this.createQRCode(icon);
-                    icon.href = "javascript:;";
-                } else {
-                    icon.href = this.getURL(service);
-                    icon.target = "_blank";
-                }
-                if (this.options.render) this.options.render.call(this, icon, service);
+
+                this.setIcon(icon, this.options.services[i]);
+
                 this.container.appendChild(icon);
             }
         }
