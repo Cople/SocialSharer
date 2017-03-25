@@ -149,10 +149,14 @@ SocialSharer.prototype = {
         if (defaultIcons.length) {
             for (i = 0, len = defaultIcons.length; i < len; i++) {
                 service = icon.getAttribute("data-service");
+                icon = defaultIcons[i];
 
-                if (service === "webshare" && !isWebShareSupported) continue;
+                if (service === "webshare" && !isWebShareSupported) {
+                    this.container.removeChild(icon);
+                    continue;
+                }
 
-                this.setIcon(defaultIcons[i], service);
+                this.setIcon(icon, service);
             }
         } else {
             for (i = 0, len = this.options.services.length; i < len; i++) {
