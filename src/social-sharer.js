@@ -148,8 +148,8 @@ SocialSharer.prototype = {
 
         if (defaultIcons.length) {
             for (i = 0, len = defaultIcons.length; i < len; i++) {
-                service = icon.getAttribute("data-service");
                 icon = defaultIcons[i];
+                service = icon.getAttribute("data-service");
 
                 if (service === "webshare" && !isWebShareSupported) {
                     this.container.removeChild(icon);
