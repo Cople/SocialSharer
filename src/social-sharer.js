@@ -63,6 +63,8 @@ var templates = SocialSharer.templates = {
     email: "mailto:?subject={title}&body={url}"
 };
 
+var isWebShareSupported = navigator.share && /android.+chrome/i.test(navigator.userAgent);
+
 SocialSharer.addService = function(name, template) {
     templates[name] = template;
     template.replace(/\{(.*?)\}/g, function(match, key) {
@@ -71,6 +73,8 @@ SocialSharer.addService = function(name, template) {
 };
 
 SocialSharer.prototype = {
+    constructor: SocialSharer,
+
     init: function(container, options) {
         this.container = typeof container === "string" ? document.querySelector(container) : container;
 
@@ -113,30 +117,52 @@ SocialSharer.prototype = {
             if (service !== "email") icon.target = "_blank";
         }
 
-        if (this.options.onRender) this.options.onRender.call(this, icon, service);
-
         if (this.options.onClick) {
             icon.onclick = function(event) {
                 return self.options.onClick.call(self, event, service);
             };
         }
+
+        if (service === "webshare") {
+            icon.origOnClick = icon.onclick;
+
+            icon.onclick = function(event) {
+                navigator.share({
+                    title: self.options.title,
+                    text: self.options.text,
+                    url: self.options.url
+                });
+
+                if (icon.origOnClick) icon.origOnClick(event);
+            };
+        }
+
+        if (this.options.onRender) {
+            this.options.onRender.call(this, icon, service);
+        }
     },
 
     createIcons: function() {
         var defaultIcons = this.container.querySelectorAll("[data-service]");
-        var i, len, icon;
+        var i, len, icon, service;
 
         if (defaultIcons.length) {
             for (i = 0, len = defaultIcons.length; i < len; i++) {
-                icon = defaultIcons[i];
+                service = icon.getAttribute("data-service");
 
-                this.setIcon(icon, icon.getAttribute("data-service"));
+                if (service === "webshare" && !isWebShareSupported) continue;
+
+                this.setIcon(defaultIcons[i], service);
             }
         } else {
             for (i = 0, len = this.options.services.length; i < len; i++) {
+                service = this.options.services[i];
+
+                if (service === "webshare" && !isWebShareSupported) continue;
+
                 icon = document.createElement("a");
 
-                this.setIcon(icon, this.options.services[i]);
+                this.setIcon(icon, service);
 
                 this.container.appendChild(icon);
             }
@@ -158,17 +184,3 @@ SocialSharer.prototype = {
         }) : template;
     }
 };
-
-if (typeof jQuery !== "undefined") {
-    var pluginName = "SocialSharer";
-    jQuery.fn.socialSharer = function(method, param) {
-        return this.each(function() {
-            var $el = $(this);
-            if (typeof method === "string") {
-                $el.data(pluginName)[method](param);
-            } else {
-                if (!$el.data(pluginName)) $el.data(pluginName, new SocialSharer(this, method));
-            }
-        });
-    };
-}

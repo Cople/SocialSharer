@@ -3,7 +3,7 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-	<title>social-sharer.js</title>
+	<title>jquery.social-sharer.js</title>
 	<link rel="stylesheet" href="../dist/social-sharer.min.css">
 	<style>
 	body { text-align: center; }
@@ -23,16 +23,17 @@
 <body>
 
 <div class="content">
-	<h1>social-sharer.js</h1>
+	<h1>jquery.social-sharer.js</h1>
 	<h3>最 Pure 的社会化分享按钮</h3>
 	<p><a href="https://github.com/Cople/SocialSharer">View on GitHub</a></p>
 
 	<div id="demo" class="social-sharer"></div>
 </div>
 
-<script src="../dist/social-sharer.min.js"></script>
+<script src="//code.jquery.com/jquery-1.12.4.min.js"></script>
+<script src="../dist/jquery.social-sharer.min.js"></script>
 <script>
-var socialSharer = new SocialSharer("#demo", {
+$("#demo").socialSharer({
 	onRender: function(icon, service) {
 		console.log("onRender", icon, service);
 	},
