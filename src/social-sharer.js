@@ -60,7 +60,8 @@ var templates = SocialSharer.templates = {
     evernote: "http://www.evernote.com/clip.action?url={url}&title={title}",
     yingxiang: "http://app.yinxiang.com/clip.action?url={url}&title={title}",
     qrcode: "//pan.baidu.com/share/qrcode?w={qrcodeSize}&h={qrcodeSize}&url={url}",
-    email: "mailto:?subject={title}&body={url}"
+    email: "mailto:?subject={title}&body={url}",
+    webshare: "javascript:;"
 };
 
 var isWebShareSupported = navigator.share && /android.+chrome/i.test(navigator.userAgent);
