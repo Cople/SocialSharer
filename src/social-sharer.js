@@ -64,8 +64,6 @@ var templates = SocialSharer.templates = {
     webshare: "javascript:;"
 };
 
-var isWebShareSupported = navigator.share && /android.+chrome/i.test(navigator.userAgent);
-
 SocialSharer.addService = function(name, template) {
     templates[name] = template;
     template.replace(/\{(.*?)\}/g, function(match, key) {
@@ -152,7 +150,7 @@ SocialSharer.prototype = {
                 icon = defaultIcons[i];
                 service = icon.getAttribute("data-service");
 
-                if (service === "webshare" && !isWebShareSupported) {
+                if (service === "webshare" && !navigator.share) {
                     this.container.removeChild(icon);
                     continue;
                 }
@@ -163,7 +161,7 @@ SocialSharer.prototype = {
             for (i = 0, len = this.options.services.length; i < len; i++) {
                 service = this.options.services[i];
 
-                if (service === "webshare" && !isWebShareSupported) continue;
+                if (service === "webshare" && !navigator.share) continue;
 
                 icon = document.createElement("a");
 
