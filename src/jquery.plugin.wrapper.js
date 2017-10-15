@@ -1,10 +1,9 @@
 function plugin(method, param) {
-    return this.each(function() {
-        var $el = $(this);
-        if (typeof method === "string") {
-            $el.data("SocialSharer")[method](param);
-        } else {
-            if (!$el.data("SocialSharer")) $el.data("SocialSharer", new SocialSharer(this, method));
-        }
-    });
+    if (typeof method === "string") {
+        return $.data(this[0], "SocialSharer")[method](param);
+    } else {
+        return this.each(function() {
+            if (!$.data(this, "SocialSharer")) $.data(this, "SocialSharer", new SocialSharer(this, method));
+        });
+    }
 }
